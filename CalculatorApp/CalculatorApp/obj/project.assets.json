@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Facultate\\Anul II\\Semestrul II\\MAP\\CalculatorApp\\CalculatorApp\\CalculatorApp.csproj",
+      "projectUniqueName": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\CalculatorApp.csproj",
       "projectName": "CalculatorApp",
-      "projectPath": "D:\\Facultate\\Anul II\\Semestrul II\\MAP\\CalculatorApp\\CalculatorApp\\CalculatorApp.csproj",
+      "projectPath": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\CalculatorApp.csproj",
       "packagesPath": "C:\\Users\\Sebi\\.nuget\\packages\\",
-      "outputPath": "D:\\Facultate\\Anul II\\Semestrul II\\MAP\\CalculatorApp\\CalculatorApp\\obj\\",
+      "outputPath": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

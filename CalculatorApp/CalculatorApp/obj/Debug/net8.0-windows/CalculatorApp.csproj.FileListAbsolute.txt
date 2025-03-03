@@ -19,3 +19,25 @@ D:\Facultate\Anul II\Semestrul II\MAP\CalculatorApp\CalculatorApp\obj\Debug\net8
 D:\Facultate\Anul II\Semestrul II\MAP\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 D:\Facultate\Anul II\Semestrul II\MAP\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp_MarkupCompile.lref
 D:\Facultate\Anul II\Semestrul II\MAP\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\MainWindow.baml
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\bin\Debug\net8.0-windows\CalculatorApp.exe
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\bin\Debug\net8.0-windows\CalculatorApp.deps.json
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\bin\Debug\net8.0-windows\CalculatorApp.runtimeconfig.json
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\bin\Debug\net8.0-windows\CalculatorApp.dll
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\bin\Debug\net8.0-windows\CalculatorApp.pdb
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\MainWindow.g.cs
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp_MarkupCompile.cache
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp_MarkupCompile.lref
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\MainWindow.baml
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.g.resources
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.AssemblyInfoInputs.cache
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.AssemblyInfo.cs
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.csproj.CoreCompileInputs.cache
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.sourcelink.json
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.dll
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\refint\CalculatorApp.dll
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.pdb
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.genruntimeconfig.cache
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\ref\CalculatorApp.dll
