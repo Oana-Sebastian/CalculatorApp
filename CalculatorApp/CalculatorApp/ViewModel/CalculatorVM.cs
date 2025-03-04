@@ -49,7 +49,7 @@ namespace CalculatorApp.ViewModel
         public CalculatorVM()
         {
             DigitCommand = new RelayCommand(param => AppendDigit(param.ToString()));
-            OperatorCommand = new RelayCommand(param => ProcessOperator(param.ToString()));
+            OperatorCommand = new RelayCommand(execute: param => ProcessOperator(param.ToString()), canExecute: param => OperatorsEnabled);
             EqualCommand = new RelayCommand(param => Evaluate());
             ClearCommand = new RelayCommand(param => Clear(param));
             BackspaceCommand = new RelayCommand(param => Backspace());         
@@ -149,7 +149,8 @@ namespace CalculatorApp.ViewModel
         private void RecallMemory(double recalledMemory)
         {
                 Display = FormatNumber(recalledMemory);
-            _lastValue = recalledMemory;
+                _lastValue = recalledMemory;
+                _memoryRecalled = true;
         }
 
         private void MemoryChange()
@@ -246,19 +247,23 @@ namespace CalculatorApp.ViewModel
                     result = current / 100;
                     break;
             }
-            Display = FormatNumber(result);
-            if (string.IsNullOrEmpty(_currentOperator))
+            if (!string.IsNullOrEmpty(_currentOperator))
+            {
+                Display = FormatNumber(result);
+            }
+            else
             {
                 _lastValue = result;
+                Display = FormatNumber(result);
             }
-                _isNewEntry = true;
+            _isNewEntry = true;
         }
 
         private void Evaluate()
         {
             if (_errorState)
-               ClearEverything();
-
+                ClearEverything();
+            
             if (!double.TryParse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out double currentValue))
             {
                 Display = "Error";
@@ -356,6 +361,7 @@ namespace CalculatorApp.ViewModel
             _lastOperand = 0;
             _isNewEntry = true;
             _errorState = false;
+            _memoryRecalled = false;
             OnPropertyChanged(nameof(OperatorsEnabled));
         }
 

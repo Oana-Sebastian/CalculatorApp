@@ -87,6 +87,7 @@ namespace CalculatorApp.ViewModel
             MemorySubtractSelectedCommand = new RelayCommand(param => MemorySubtractSelected(param));
             MemoryClearAllCommand = new RelayCommand(_ => ClearAllMemory(), _ => HasMemory);
             ClearSelectedCommand = new RelayCommand(param => ClearSelected(), param => SelectedMemory.HasValue);
+            RecalledMemory = 0;
         }
 
 
@@ -99,6 +100,9 @@ namespace CalculatorApp.ViewModel
                 {
                     MemoryStack.RemoveAt(index);
                     SelectedMemory = null;
+                    if (MemoryStack.Count==0)
+                        RecalledMemory = 0;
+                    else
                     RecalledMemory = MemoryStack[MemoryStack.Count - 1];
                 }
             }
