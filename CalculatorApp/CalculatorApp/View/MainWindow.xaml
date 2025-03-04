@@ -37,13 +37,25 @@
 
         
         <UniformGrid Grid.Row="1" Columns="6" Margin="0,0,0,10" Background="Black" Grid.ColumnSpan="2">
-
-            <Button Content="MC" Background="Black" Foreground="White" Command="{Binding Memory.MemoryClearCommand}"/>
-            <Button Content="MR" Background="Black" Foreground="White" Command="{Binding Memory.MemoryRecallCommand}"/>
-            <Button Content="M+" Background="Black" Foreground="White" Command="{Binding Memory.MemoryAddCommand}"/>
-            <Button Content="M-" Background="Black" Foreground="White" Command="{Binding Memory.MemorySubtractCommand}"/>
-            <Button Content="MS" Background="Black" Foreground="White" Command="{Binding Memory.MemoryStoreCommand}"/>
-            <Button Content="Mv" Background="Black" Foreground="White" Command="{Binding Memory.MemoryViewCommand}"/>
+            <Button Content="MC" Background="Black" Foreground="White" 
+                    Command="{Binding Memory.MemoryClearAllCommand}"
+                    IsEnabled="{Binding Memory.HasMemory}"/>
+            <Button Content="MR" Background="Black" Foreground="White" 
+                    IsEnabled="{Binding Memory.HasMemory}"
+                    Command="{Binding Calculator.MemoryRecallCommand}"
+                    CommandParameter="{Binding Memory.RecalledMemory}"/>
+            <Button Content="M+" Background="Black" Foreground="White" 
+                    Command="{Binding CompositeMemoryAddCommand}"
+                    CommandParameter="{Binding Calculator.Display}"/>
+            <Button Content="M-" Background="Black" Foreground="White" 
+                    Command="{Binding CompositeMemorySubtractCommand}"
+                    CommandParameter="{Binding Calculator.Display}"/>
+            <Button Content="MS" Background="Black" Foreground="White" 
+                    Command="{Binding CompositeMemoryStoreCommand}"
+                    CommandParameter="{Binding Calculator.Display}"/>
+            <Button Content="Mv" Background="Black" Foreground="White" 
+                    Command="{Binding MemoryViewCommand}"
+                    IsEnabled="{Binding Memory.HasMemory}"/>
         </UniformGrid>
 
       

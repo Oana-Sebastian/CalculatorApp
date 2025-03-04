@@ -3,6 +3,9 @@ using System.Globalization;
 using System.ComponentModel;
 using System.Windows.Input;
 using CalculatorApp.ViewModel.Commands;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using CalculatorApp.View;
 
 namespace CalculatorApp.ViewModel
 {
@@ -22,12 +25,16 @@ namespace CalculatorApp.ViewModel
             }
         }
 
+   
 
         public ICommand DigitCommand { get; }
         public ICommand OperatorCommand { get; }
         public ICommand EqualCommand { get; }
         public ICommand ClearCommand { get; }
         public ICommand BackspaceCommand { get; }
+        public ICommand MemoryChangeCommand { get; }  
+        public ICommand MemoryRecallCommand { get; }
+      
 
         private double _lastValue;
         private string _currentOperator = "";
@@ -35,7 +42,9 @@ namespace CalculatorApp.ViewModel
         private string _lastOperator = "";
         private bool _isNewEntry = true;
         private bool _errorState = false;
+        private bool _memoryRecalled = false;
         public bool OperatorsEnabled => !_errorState;
+
 
         public CalculatorVM()
         {
@@ -43,7 +52,9 @@ namespace CalculatorApp.ViewModel
             OperatorCommand = new RelayCommand(param => ProcessOperator(param.ToString()));
             EqualCommand = new RelayCommand(param => Evaluate());
             ClearCommand = new RelayCommand(param => Clear(param));
-            BackspaceCommand = new RelayCommand(param => Backspace());
+            BackspaceCommand = new RelayCommand(param => Backspace());         
+            MemoryRecallCommand = new RelayCommand(param => RecallMemory((double)param));
+            MemoryChangeCommand = new RelayCommand(param => MemoryChange());
         }
 
         private void FormatAndSetDisplay()
@@ -90,6 +101,13 @@ namespace CalculatorApp.ViewModel
 
         private void AppendDigit(string digit)
         {
+            if (_memoryRecalled)
+            {
+                Display = "";
+                _memoryRecalled = false;
+                _isNewEntry = true;
+            }
+
             if (_errorState)
             {
                 _errorState = false;
@@ -128,9 +146,24 @@ namespace CalculatorApp.ViewModel
             FormatAndSetDisplay();
         }
 
+        private void RecallMemory(double recalledMemory)
+        {
+                Display = FormatNumber(recalledMemory);
+            _lastValue = recalledMemory;
+        }
+
+        private void MemoryChange()
+        {
+            _memoryRecalled = true;
+        }
 
         private void ProcessOperator(string op)
         {
+
+            if (_memoryRecalled)
+            {
+                _memoryRecalled = false;
+            }
 
             if (_errorState)
                 return;
@@ -148,7 +181,7 @@ namespace CalculatorApp.ViewModel
                     if (current == 0)
                         return;
                     double result = -current;
-                    Display = result.ToString();
+                    Display=FormatNumber(result);
                     _lastValue = result;  
                     _isNewEntry = true;
                 }
@@ -253,6 +286,7 @@ namespace CalculatorApp.ViewModel
             }
             else if (!string.IsNullOrEmpty(_lastOperator))
             {
+                
                 double result = Compute(currentValue, _lastOperand, _lastOperator);
                 if (_errorState)
                 {

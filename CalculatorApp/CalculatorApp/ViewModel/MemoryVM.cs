@@ -1,115 +1,207 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Input;
+using CalculatorApp.View;
 using CalculatorApp.ViewModel.Commands;
 
 namespace CalculatorApp.ViewModel
 {
     public class MemoryVM : INotifyPropertyChanged
     {
-        private double _memoryValue;
-        public double MemoryValue
+        public event Action<double> MemoryChanged;
+        public ObservableCollection<double> MemoryStack { get; private set; } = new ObservableCollection<double>();
+
+        public bool HasMemory => MemoryStack.Count > 0;
+
+        private double? _recalledMemory;
+        public double? RecalledMemory
         {
-            get => _memoryValue;
+            get => _recalledMemory;
             set
             {
-                if (_memoryValue != value)
+                if (_recalledMemory != value)
                 {
-                    _memoryValue = value;
-                    OnPropertyChanged(nameof(MemoryValue));
+                    _recalledMemory = value;
+                    OnPropertyChanged(nameof(RecalledMemory));
                 }
             }
         }
 
-        // Memory commands
-        public ICommand MemoryClearCommand { get; }
-        public ICommand MemoryRecallCommand { get; }
+        private double? _selectedMemory;
+        public double? SelectedMemory
+        {
+            get => _selectedMemory;
+            set
+            {
+                if (_selectedMemory != value)
+                {
+                    _selectedMemory = value;
+                    OnPropertyChanged(nameof(SelectedMemory));
+                    ((RelayCommand)ClearSelectedCommand).RaiseCanExecuteChanged();
+                    if (_selectedMemory.HasValue)
+                    {
+                        SelectedIndex = MemoryStack.IndexOf(_selectedMemory.Value);
+                    }
+                    else
+                    {
+                        SelectedIndex = null;
+                    }
+                }
+            }
+        }
+
+        private int? _selectedIndex;
+        public int? SelectedIndex
+        {
+            get => _selectedIndex;
+            private set
+            {
+                if (_selectedIndex != value)
+                {
+                    _selectedIndex = value;
+                    OnPropertyChanged(nameof(SelectedIndex));
+                }
+            }
+        }
+
+        public ICommand ClearSelectedCommand { get; }
+
         public ICommand MemoryStoreCommand { get; }
         public ICommand MemoryAddCommand { get; }
+        public ICommand MemoryAddSelectedCommand { get; }
         public ICommand MemorySubtractCommand { get; }
-        public ICommand MemoryViewCommand { get; }
+        public ICommand MemorySubtractSelectedCommand { get; }
+        public ICommand MemoryClearAllCommand { get; } 
+        
 
         public MemoryVM()
         {
-            MemoryClearCommand = new RelayCommand(_ => MemoryClear());
-            MemoryRecallCommand = new RelayCommand(_ => MemoryRecall());
+            MemoryStack.CollectionChanged += MemoryStack_CollectionChanged;
             MemoryStoreCommand = new RelayCommand(param => MemoryStore(param));
             MemoryAddCommand = new RelayCommand(param => MemoryAdd(param));
+            MemoryAddSelectedCommand = new RelayCommand(param => MemoryAddSelected(param));
             MemorySubtractCommand = new RelayCommand(param => MemorySubtract(param));
-            MemoryViewCommand = new RelayCommand(_ => MemoryView());
+            MemorySubtractSelectedCommand = new RelayCommand(param => MemorySubtractSelected(param));
+            MemoryClearAllCommand = new RelayCommand(_ => ClearAllMemory(), _ => HasMemory);
+            ClearSelectedCommand = new RelayCommand(param => ClearSelected(), param => SelectedMemory.HasValue);
         }
 
-        /// <summary>
-        /// Clears the stored memory value (MC).
-        /// </summary>
-        private void MemoryClear()
+
+        private void ClearSelected()
         {
-            MemoryValue = 0;
-        }
+            if (SelectedMemory.HasValue)
+            {
+                int index = MemoryStack.IndexOf(SelectedMemory.Value);
+                if (index >= 0)
+                {
+                    MemoryStack.RemoveAt(index);
+                    SelectedMemory = null;
+                    RecalledMemory = MemoryStack[MemoryStack.Count - 1];
+                }
+            }
 
-        /// <summary>
-        /// Recalls the stored memory value (MR).
-        /// This method may be used to update a display in a higher-level view model.
-        /// </summary>
-        private void MemoryRecall()
-        {
-            // In a composite design, the higher-level view model (or the view)
-            // would bind to the MemoryValue property.
-            // This method is provided if you want to add additional logic.
         }
-
-        /// <summary>
-        /// Stores the passed value into memory (MS).
-        /// Parameter should be the current value (as string or double) from the calculator.
-        /// </summary>
         private void MemoryStore(object parameter)
         {
             if (double.TryParse(parameter?.ToString(),
                                   NumberStyles.Float | NumberStyles.AllowThousands,
                                   CultureInfo.CurrentCulture,
-                                  out double current))
+                                  out double value))
             {
-                MemoryValue = current;
+                MemoryStack.Add(value);
+                RecalledMemory = value;
             }
         }
 
-        /// <summary>
-        /// Adds the passed value to the stored memory (M+).
-        /// </summary>
+        private void MemoryStack_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(HasMemory));
+            ((RelayCommand)MemoryClearAllCommand).RaiseCanExecuteChanged();
+        }
+
+
         private void MemoryAdd(object parameter)
         {
-            if (double.TryParse(parameter?.ToString(),
+            if (!double.TryParse(parameter?.ToString(),
                                   NumberStyles.Float | NumberStyles.AllowThousands,
                                   CultureInfo.CurrentCulture,
-                                  out double current))
+                                  out double value))
+                return;
+
+
+            if (MemoryStack.Count == 0)
             {
-                MemoryValue += current;
+                MemoryStack.Add(0);
+                RecalledMemory = 0;
             }
+            int index = MemoryStack.Count - 1;
+            MemoryStack[index] = MemoryStack[index] + value;
+            RecalledMemory=MemoryStack[index];
         }
 
-        /// <summary>
-        /// Subtracts the passed value from the stored memory (M–).
-        /// </summary>
+        private void MemoryAddSelected(object parameter)
+        {
+            if (!double.TryParse(parameter?.ToString(),
+                                  NumberStyles.Float | NumberStyles.AllowThousands,
+                                  CultureInfo.CurrentCulture,
+                                  out double value))
+                return;
+
+            int index = SelectedIndex.HasValue ? SelectedIndex.Value : MemoryStack.Count - 1;
+            if (index < 0)
+            {
+                MemoryStack.Add(0);
+                index = 0;
+            }
+            MemoryStack[index] = MemoryStack[index] + value;
+            SelectedMemory = MemoryStack[index];
+            RecalledMemory = MemoryStack[MemoryStack.Count-1];
+        }
+
         private void MemorySubtract(object parameter)
         {
-            if (double.TryParse(parameter?.ToString(),
+            if (!double.TryParse(parameter?.ToString(),
                                   NumberStyles.Float | NumberStyles.AllowThousands,
                                   CultureInfo.CurrentCulture,
-                                  out double current))
+                                  out double value))
+                return;
+
+            if (MemoryStack.Count == 0)
             {
-                MemoryValue -= current;
+                MemoryStack.Add(0);
+                RecalledMemory = 0;
             }
+            int index = MemoryStack.Count - 1;
+            MemoryStack[index] = MemoryStack[index] - value;
+            RecalledMemory= MemoryStack[index];
+        }
+        
+        private void MemorySubtractSelected(object parameter)
+        {
+            if (!double.TryParse(parameter?.ToString(),
+                                  NumberStyles.Float | NumberStyles.AllowThousands,
+                                  CultureInfo.CurrentCulture,
+                                  out double value))
+                return;
+
+            int index = SelectedIndex.HasValue ? SelectedIndex.Value : MemoryStack.Count - 1;
+            if (index < 0)
+            {
+                MemoryStack.Add(0);
+                index = 0;
+            }
+            MemoryStack[index] = MemoryStack[index] - value;
+            SelectedMemory = MemoryStack[index];
+            RecalledMemory = MemoryStack[MemoryStack.Count-1];
         }
 
-        /// <summary>
-        /// Memory View (Mv). In this simple implementation, the view simply binds to MemoryValue.
-        /// This method is provided if additional logic is desired.
-        /// </summary>
-        private void MemoryView()
+        private void ClearAllMemory()
         {
-            // No additional logic required here.
-            // The MemoryValue property is available for binding.
+            MemoryStack.Clear();
+            RecalledMemory = 0;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

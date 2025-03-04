@@ -41,3 +41,5 @@ C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0
 C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.pdb
 C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\CalculatorApp.genruntimeconfig.cache
 C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\ref\CalculatorApp.dll
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\MemoryWindow.g.cs
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\MemoryWindow.baml
