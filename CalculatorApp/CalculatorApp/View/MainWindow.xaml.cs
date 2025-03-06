@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CalculatorApp.ViewModel;
 
 namespace CalculatorApp.View
 {
@@ -20,7 +21,19 @@ namespace CalculatorApp.View
         public MainWindow()
         {
             InitializeComponent();
+            this.Closing += MainWindowClosing;
         }
+        private void MainWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (DataContext is MainVM mainVM)
+            {
+                Properties.Settings.Default.IsDigitGroupingEnabled = mainVM.Calculator.IsDigitGroupingEnabled;
+                Properties.Settings.Default.IsProgrammerMode = mainVM.Calculator.IsProgrammerMode;
+                Properties.Settings.Default.SelectedBase = mainVM.Calculator.SelectedBase;
 
+                
+                Properties.Settings.Default.Save();
+            }
+        }
     }
 }

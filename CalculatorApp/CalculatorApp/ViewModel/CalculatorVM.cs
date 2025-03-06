@@ -6,6 +6,7 @@ using CalculatorApp.ViewModel.Commands;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using CalculatorApp.View;
+using System.Reflection.Metadata;
 
 namespace CalculatorApp.ViewModel
 {
@@ -25,7 +26,58 @@ namespace CalculatorApp.ViewModel
             }
         }
 
-   
+        private bool _isDigitGroupingEnabled;
+        public bool IsDigitGroupingEnabled
+        {
+            get => _isDigitGroupingEnabled;
+            set
+            {
+                if (_isDigitGroupingEnabled != value)
+                {
+                    _isDigitGroupingEnabled = value;
+                    OnPropertyChanged(nameof(IsDigitGroupingEnabled));
+                    FormatAndSetDisplay();
+                    
+                }
+            }
+        }
+
+        private bool _isProgrammerMode;
+        public bool IsProgrammerMode
+        {
+            get => _isProgrammerMode;
+            set
+            {
+                if (_isProgrammerMode != value)
+                {
+                    _isProgrammerMode = value;
+                    OnPropertyChanged(nameof(IsProgrammerMode));
+                    OnPropertyChanged(nameof(OperationsAllowed));
+                    OnPropertyChanged(nameof(ModeText));
+                    Display = FormatNumber(_lastValue);
+                    
+                }
+            }
+        }
+        public bool OperationsAllowed => !IsProgrammerMode || (IsProgrammerMode && SelectedBase == 10);
+
+        public string ModeText => IsProgrammerMode ? "Programmer Mode" : "Standard Mode";
+
+        private int _selectedBase;
+        public int SelectedBase
+        {
+            get => _selectedBase;
+            set
+            {
+                if (_selectedBase != value)
+                {
+                    _selectedBase = value;
+                    OnPropertyChanged(nameof(SelectedBase));
+                    Display = FormatNumber(_lastValue);
+
+                }
+            }
+        }
 
         public ICommand DigitCommand { get; }
         public ICommand OperatorCommand { get; }
@@ -34,7 +86,11 @@ namespace CalculatorApp.ViewModel
         public ICommand BackspaceCommand { get; }
         public ICommand MemoryChangeCommand { get; }  
         public ICommand MemoryRecallCommand { get; }
-      
+        public ICommand FileManagementCommand { get; }
+        public ICommand ToggleDigitGroupingCommand { get; }
+        public ICommand ToggleProgrammerModeCommand { get; }
+        public ICommand SetBaseCommand { get; }
+
 
         private double _lastValue;
         private string _currentOperator = "";
@@ -44,10 +100,14 @@ namespace CalculatorApp.ViewModel
         private bool _errorState = false;
         private bool _memoryRecalled = false;
         public bool OperatorsEnabled => !_errorState;
+        private double _copiedValue=0;
 
 
         public CalculatorVM()
         {
+            IsDigitGroupingEnabled = Properties.Settings.Default.IsDigitGroupingEnabled;
+            IsProgrammerMode = Properties.Settings.Default.IsProgrammerMode;
+            SelectedBase = Properties.Settings.Default.SelectedBase;
             DigitCommand = new RelayCommand(param => AppendDigit(param.ToString()));
             OperatorCommand = new RelayCommand(execute: param => ProcessOperator(param.ToString()), canExecute: param => OperatorsEnabled);
             EqualCommand = new RelayCommand(param => Evaluate());
@@ -55,52 +115,101 @@ namespace CalculatorApp.ViewModel
             BackspaceCommand = new RelayCommand(param => Backspace());         
             MemoryRecallCommand = new RelayCommand(param => RecallMemory((double)param));
             MemoryChangeCommand = new RelayCommand(param => MemoryChange());
+            FileManagementCommand = new RelayCommand(param => FileManagement(param.ToString()));
+            ToggleDigitGroupingCommand = new RelayCommand(_ => IsDigitGroupingEnabled = !IsDigitGroupingEnabled);
+            ToggleProgrammerModeCommand = new RelayCommand(_ => IsProgrammerMode = !IsProgrammerMode);
+            SetBaseCommand = new RelayCommand(param =>
+            {
+                if (int.TryParse(param.ToString(), out int baseValue))
+                {
+                    SelectedBase = baseValue;
+                }
+            });
         }
 
         private void FormatAndSetDisplay()
         {
             var nfi = CultureInfo.CurrentCulture.NumberFormat;
-          
             string raw = Display.Replace(nfi.NumberGroupSeparator, "");
+            string formatted = string.Empty;
+
+           
             if (raw.Contains(nfi.NumberDecimalSeparator))
             {
                 var parts = raw.Split(new string[] { nfi.NumberDecimalSeparator }, StringSplitOptions.None);
                 string integerPart = parts[0];
                 string fractionalPart = parts.Length > 1 ? parts[1] : "";
-                string formattedInteger = "";
-                if (string.IsNullOrEmpty(integerPart) || integerPart == "-")
+
+                if (IsDigitGroupingEnabled)
                 {
-                    formattedInteger = integerPart + "0";
-                }
-                else if (long.TryParse(integerPart, NumberStyles.Integer, CultureInfo.CurrentCulture, out long intPart))
-                {
-                    formattedInteger = intPart.ToString("#,0", CultureInfo.CurrentCulture);
+                    if (long.TryParse(integerPart, NumberStyles.Integer, CultureInfo.CurrentCulture, out long intPart))
+                    {
+                        formatted = intPart.ToString("#,0", CultureInfo.CurrentCulture);
+                    }
+                    else
+                    {
+                        formatted = integerPart;
+                    }
                 }
                 else
                 {
-                    formattedInteger = integerPart; 
+                    
+                    formatted = integerPart;
                 }
-                Display = formattedInteger + nfi.NumberDecimalSeparator + fractionalPart;
+               
+                formatted += nfi.NumberDecimalSeparator + fractionalPart;
             }
             else
             {
-                if (long.TryParse(raw, NumberStyles.Integer, CultureInfo.CurrentCulture, out long intPart))
+                if (IsDigitGroupingEnabled)
                 {
-                    Display = intPart.ToString("#,0", CultureInfo.CurrentCulture);
+                    if (long.TryParse(raw, NumberStyles.Integer, CultureInfo.CurrentCulture, out long intPart))
+                    {
+                        formatted = intPart.ToString("#,0", CultureInfo.CurrentCulture);
+                    }
+                    else
+                    {
+                        formatted = raw;
+                    }
                 }
                 else
                 {
-                    Display = raw;
+                    formatted = raw;
                 }
             }
+
+            Display = formatted;
         }
         private string FormatNumber(double value)
         {
+            if (IsProgrammerMode)
+            {
+                long intVal = (long)Math.Round(value);
+                switch (SelectedBase)
+                {
+                    case 2:
+                        return Convert.ToString(intVal, 2);
+                    case 8:
+                        return Convert.ToString(intVal, 8);
+                    case 10:
+                        return intVal.ToString();
+                    case 16:
+                        return intVal.ToString("X");
+                    default:
+                        return intVal.ToString();
+                }
+            }
+            else
+            if (!IsDigitGroupingEnabled)
+            return value.ToString("0.############################", CultureInfo.CurrentCulture);
+            else
             return value.ToString("#,0.############################", CultureInfo.CurrentCulture);
         }
 
         private void AppendDigit(string digit)
         {
+
+
             if (_memoryRecalled)
             {
                 Display = "";
@@ -119,7 +228,9 @@ namespace CalculatorApp.ViewModel
 
             if (digit == ".")
             {
-                
+                if (IsProgrammerMode)
+                    return;
+
                 if (_isNewEntry)
                 {
                     Display = "0.";
@@ -143,7 +254,35 @@ namespace CalculatorApp.ViewModel
             {
                 Display += digit;
             }
+            if(!IsProgrammerMode)
             FormatAndSetDisplay();
+        }
+
+        void FileManagement(string command)
+        {
+            if (_errorState)
+                return;
+            switch (command)
+            {
+                case ("C"):
+                    if (double.TryParse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out double copy))
+                    {
+                        _copiedValue=copy;
+                    }
+                    break;
+                case ("X"):
+                    if (double.TryParse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out double cut))
+                    {
+                        _copiedValue = cut;
+                        ClearEverything();
+                    }
+                    break;
+                case ("V"):
+                    Display=FormatNumber(_copiedValue);
+                    _isNewEntry = false;
+                break;
+            }
+
         }
 
         private void RecallMemory(double recalledMemory)

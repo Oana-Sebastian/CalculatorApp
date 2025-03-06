@@ -8,13 +8,11 @@
         Background="Black"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
-
     <Window.DataContext>
         <local:MainVM/>
     </Window.DataContext>
 
     <Window.InputBindings>
-        
         <KeyBinding Key="D0" Command="{Binding Calculator.DigitCommand}" CommandParameter="0"/>
         <KeyBinding Key="NumPad0" Command="{Binding Calculator.DigitCommand}" CommandParameter="0"/>
         <KeyBinding Key="D1" Command="{Binding Calculator.DigitCommand}" CommandParameter="1"/>
@@ -37,6 +35,7 @@
         <KeyBinding Key="NumPad9" Command="{Binding Calculator.DigitCommand}" CommandParameter="9"/>
         <KeyBinding Key="OemPeriod" Command="{Binding Calculator.DigitCommand}" CommandParameter="."/>
         <KeyBinding Key="Decimal" Command="{Binding Calculator.DigitCommand}" CommandParameter="."/>
+
         <KeyBinding Key="Add" Command="{Binding Calculator.OperatorCommand}" CommandParameter="+"/>
         <KeyBinding Key="Subtract" Command="{Binding Calculator.OperatorCommand}" CommandParameter="-"/>
         <KeyBinding Key="OemPlus" Modifiers="Shift" Command="{Binding Calculator.OperatorCommand}" CommandParameter="+"/>
@@ -45,15 +44,18 @@
         <KeyBinding Key="D8" Modifiers="Shift" Command="{Binding Calculator.OperatorCommand}" CommandParameter="×"/>
         <KeyBinding Key="Divide" Command="{Binding Calculator.OperatorCommand}" CommandParameter="/"/>
         <KeyBinding Key="OemQuestion" Command="{Binding Calculator.OperatorCommand}" CommandParameter="/"/>
+
         <KeyBinding Key="Return" Command="{Binding Calculator.EqualCommand}"/>
         <KeyBinding Key="Enter" Command="{Binding Calculator.EqualCommand}"/>
         <KeyBinding Key="Escape" Command="{Binding Calculator.ClearCommand}" CommandParameter="C"/>
         <KeyBinding Key="Backspace" Command="{Binding Calculator.BackspaceCommand}"/>
         <KeyBinding Key="OemPlus" Command="{Binding Calculator.EqualCommand}"/>
+
         <KeyBinding Key="R" Command="{Binding Calculator.OperatorCommand}" CommandParameter="1/x"/>
         <KeyBinding Key="D5" Modifiers="Shift" Command="{Binding Calculator.OperatorCommand}" CommandParameter="%"/>
         <KeyBinding Key="D2" Modifiers="Shift" Command="{Binding Calculator.OperatorCommand}" CommandParameter="√(x)"/>
         <KeyBinding Key="Q" Command="{Binding Calculator.OperatorCommand}" CommandParameter="x²"/>
+
         <KeyBinding Key="L" Modifiers="Ctrl" Command="{Binding CompositeMemoryClearCommand}"/>
         <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding Calculator.MemoryRecallCommand}" CommandParameter="{Binding Memory.RecalledMemory}"/>
         <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding CompositeMemoryAddCommand}" CommandParameter="{Binding Calculator.Display}"/>
@@ -61,197 +63,191 @@
         <KeyBinding Key="M" Modifiers="Ctrl" Command="{Binding CompositeMemoryStoreCommand}" CommandParameter="{Binding Calculator.Display}"/>
     </Window.InputBindings>
 
-    <Grid Margin="10" Background="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="19*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="19*"/>
-            <RowDefinition Height="435*"/>
-        </Grid.RowDefinitions>
+    <DockPanel Height="554" VerticalAlignment="Center">
 
-        <TextBlock x:Name="DisplayTextBlock"
-                   Text="{Binding Calculator.Display}"
-                   FontSize="40"
-                   Height="60"
-                   Background="Black"
-                   Foreground="White"
-                   TextAlignment="Right"
-                   VerticalAlignment="Center"
-                   Grid.ColumnSpan="2"/>
+        <Menu DockPanel.Dock="Top" Background="Black" Foreground="White">
+            <MenuItem Header="_File" Background="Black" Focusable="False">
+                <MenuItem Header="_Copy" Command="{Binding Calculator.FileManagementCommand}" CommandParameter="C" Background="Black" Foreground="White" Focusable="False"/>
+                <MenuItem Header="_Cut" Command="{Binding Calculator.FileManagementCommand}" CommandParameter="X" Background="Black" Foreground="White" Focusable="False"/>
+                <MenuItem Header="_Paste" Command="{Binding Calculator.FileManagementCommand}" CommandParameter="V" Background="Black" Foreground="White" Focusable="False"/>
+                <MenuItem Header="Digit Grouping" 
+                          Command="{Binding Calculator.ToggleDigitGroupingCommand}"
+                          Background="Black" Foreground="White" Focusable="False"/>
+            </MenuItem>
+            <MenuItem Header="_Help" Background="Black">
+                <MenuItem Header="_About" Command="{Binding AboutCommand}" Background="Black" Foreground="White" Focusable="False"/>
+            </MenuItem>
+            <MenuItem Header="_Programmer" Background="Black" Focusable="False">
+                <MenuItem Header="Standard Mode/Programmer Mode" Background="Black"
+                          Command="{Binding Calculator.ToggleProgrammerModeCommand}"
+                          Focusable="False"/>
+                <MenuItem Header="Base" Background="Black">
+                    <MenuItem Header="Binary" Background="Black" Command="{Binding Calculator.SetBaseCommand}" CommandParameter="2" Focusable="False"/>
+                    <MenuItem Header="Octal"  Background="Black" Command="{Binding Calculator.SetBaseCommand}" CommandParameter="8" Focusable="False"/>
+                    <MenuItem Header="Decimal" Background="Black" Command="{Binding Calculator.SetBaseCommand}" CommandParameter="10" Focusable="False"/>
+                    <MenuItem Header="Hexadecimal" Background="Black" Command="{Binding Calculator.SetBaseCommand}" CommandParameter="16" Focusable="False"/>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
 
-        
-        <UniformGrid Grid.Row="1" Columns="6" Margin="0,0,0,10" Background="Black" Grid.ColumnSpan="2">
-            <Button Content="MC" Background="Black" Foreground="White" 
-                    Command="{Binding Memory.MemoryClearAllCommand}"
-                    IsEnabled="{Binding Memory.HasMemory}"
-                    ToolTip="Clear All Memory(Ctrl+L)"
-                    Focusable="False"/>
-            <Button Content="MR" Background="Black" Foreground="White" 
-                    Command="{Binding Calculator.MemoryRecallCommand}"
-                    CommandParameter="{Binding Memory.RecalledMemory}"
-                    ToolTip="Memory recall(Ctrl+R)"
-                    IsEnabled="{Binding Memory.HasMemory}"
-                    Focusable="False"/>
-            <Button Content="M+" Background="Black" Foreground="White" 
-                    Command="{Binding CompositeMemoryAddCommand}"
-                    CommandParameter="{Binding Calculator.Display}"
-                    ToolTip="Memory add(Ctrl+P)"
-                    Focusable="False"/>
-            <Button Content="M-" Background="Black" Foreground="White" 
-                    Command="{Binding CompositeMemorySubtractCommand}"
-                    CommandParameter="{Binding Calculator.Display}"
-                    ToolTip="Memory subtract(Ctrl+Q)"
-                    Focusable="False"/>
-            <Button Content="MS" Background="Black" Foreground="White" 
-                    Command="{Binding CompositeMemoryStoreCommand}"
-                    CommandParameter="{Binding Calculator.Display}"
-                    ToolTip="Memory store(Ctrl+M)"
-                    Focusable="False"/>
-            <Button Content="Mv" Background="Black" Foreground="White" 
-                    Command="{Binding MemoryViewCommand}"
-                    IsEnabled="{Binding Memory.HasMemory}"
-                    ToolTip="Memory"
-                    Focusable="False"/>
-        </UniformGrid>
 
-      
-        <Grid Grid.Row="2" Grid.RowSpan="2" Background="Black" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <StackPanel Height="538">
 
-            
-            <Button Content="%" 
-                    Grid.Row="0" Grid.Column="0" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.OperatorCommand}" CommandParameter="%"
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
-            <Button Content="CE" 
-                    Grid.Row="0" Grid.Column="1" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.ClearCommand}" CommandParameter="CE"
-                    Focusable="False"/>
-            <Button Content="C" 
-                    Grid.Row="0" Grid.Column="2" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.ClearCommand}" CommandParameter="C"
-                    Focusable="False"/>
-            <Button Content="Back" 
-                    Grid.Row="0" Grid.Column="3" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.BackspaceCommand}"
-                    Focusable="False"/>
+            <TextBlock Text="{Binding Calculator.ModeText}" 
+                       FontSize="16" 
+                       Foreground="White"
+                       HorizontalAlignment="Right"
+                       Margin="10,5"/>
 
-          
-            <Button Content="1/x" 
-                    Grid.Row="1" Grid.Column="0" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.OperatorCommand}" CommandParameter="1/x"
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
-            <Button Content="x²" 
-                    Grid.Row="1" Grid.Column="1" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.OperatorCommand}" CommandParameter="x²"
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
-            <Button Content="√(x)" 
-                    Grid.Row="1" Grid.Column="2" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.OperatorCommand}" CommandParameter="√(x)"
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
-            <Button Content="/" 
-                    Grid.Row="1" Grid.Column="3" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.OperatorCommand}" CommandParameter="/"
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
+            <TextBlock x:Name="DisplayTextBlock"
+                       Text="{Binding Calculator.Display}"
+                       FontSize="40"
+                       Height="60"
+                       Background="Black"
+                       Foreground="White"
+                       TextAlignment="Right"
+                       VerticalAlignment="Center"
+                       Margin="10,0,10,10"/>
 
-           
-            <Button Content="7" 
-                    Grid.Row="2" Grid.Column="0" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="7"
-                    Focusable="False"/>
-            <Button Content="8" 
-                    Grid.Row="2" Grid.Column="1" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="8"
-                    Focusable="False"/>
-            <Button Content="9" 
-                    Grid.Row="2" Grid.Column="2" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="9"
-                    Focusable="False"/>
-            <Button Content="×" 
-                    Grid.Row="2" Grid.Column="3" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.OperatorCommand}" CommandParameter="×"
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
+            <UniformGrid Columns="6" Margin="0,0,0,10" Background="Black">
+                <Button Content="MC" Background="Black" Foreground="White" 
+                        Command="{Binding Memory.MemoryClearAllCommand}"
+                        IsEnabled="{Binding Memory.HasMemory}"
+                        ToolTip="Clear All Memory (Ctrl+L)"
+                        Focusable="False"/>
+                <Button Content="MR" Background="Black" Foreground="White" 
+                        Command="{Binding Calculator.MemoryRecallCommand}"
+                        CommandParameter="{Binding Memory.RecalledMemory}"
+                        ToolTip="Memory Recall (Ctrl+R)"
+                        IsEnabled="{Binding Memory.HasMemory}"
+                        Focusable="False"/>
+                <Button Content="M+" Background="Black" Foreground="White" 
+                        Command="{Binding CompositeMemoryAddCommand}"
+                        CommandParameter="{Binding Calculator.Display}"
+                        ToolTip="Memory Add (Ctrl+P)"
+                        Focusable="False"/>
+                <Button Content="M-" Background="Black" Foreground="White" 
+                        Command="{Binding CompositeMemorySubtractCommand}"
+                        CommandParameter="{Binding Calculator.Display}"
+                        ToolTip="Memory Subtract (Ctrl+Q)"
+                        Focusable="False"/>
+                <Button Content="MS" Background="Black" Foreground="White" 
+                        Command="{Binding CompositeMemoryStoreCommand}"
+                        CommandParameter="{Binding Calculator.Display}"
+                        ToolTip="Memory Store (Ctrl+M)"
+                        Focusable="False"/>
+                <Button Content="Mv" Background="Black" Foreground="White" 
+                        Command="{Binding MemoryViewCommand}"
+                        IsEnabled="{Binding Memory.HasMemory}"
+                        ToolTip="Memory (View)"
+                        Focusable="False"/>
+            </UniformGrid>
 
-           
-            <Button Content="4" 
-                    Grid.Row="3" Grid.Column="0" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="4"
-                    Focusable="False"/>
-            <Button Content="5" 
-                    Grid.Row="3" Grid.Column="1" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="5"
-                    Focusable="False"/>
-            <Button Content="6" 
-                    Grid.Row="3" Grid.Column="2" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="6"
-                    Focusable="False"/>
-            <Button Content="-" 
-                    Grid.Row="3" Grid.Column="3" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.OperatorCommand}" CommandParameter="-"
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
 
-            
-            <Button Content="1" 
-                    Grid.Row="4" Grid.Column="0" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="1"
-                    Focusable="False"/>
-            <Button Content="2" 
-                    Grid.Row="4" Grid.Column="1" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="2"
-                    Focusable="False"/>
-            <Button Content="3" 
-                    Grid.Row="4" Grid.Column="2" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="3"
-                    Focusable="False"/>
-            <Button Content="+" 
-                    Grid.Row="4" Grid.Column="3" Margin="5" Background="Gray"
-                    Command="{Binding Calculator.OperatorCommand}" CommandParameter="+"
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
+            <Grid Background="Black" Height="407">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-           
-            <Button Content="+/-" 
-                    Grid.Row="5" Grid.Column="0" Margin="5"
-                    Command="{Binding Calculator.OperatorCommand}" CommandParameter="+/-"
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
-            <Button Content="0" 
-                    Grid.Row="5" Grid.Column="1" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="0"
-                    Focusable="False"/>
-            <Button Content="." 
-                    Grid.Row="5" Grid.Column="2" Margin="5"
-                    Command="{Binding Calculator.DigitCommand}" CommandParameter="."
-                    IsEnabled="{Binding Calculator.OperatorsEnabled}"
-                    Focusable="False"/>
-            <Button Content="=" 
-                    Grid.Row="5" Grid.Column="3" Margin="5" Background="Cyan"
-                    Command="{Binding Calculator.EqualCommand}"
-                    Focusable="False"/>
-        </Grid>
-    </Grid>
+                <Button Content="%" Grid.Row="0" Grid.Column="0" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.OperatorCommand}" CommandParameter="%"
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+                <Button Content="CE" Grid.Row="0" Grid.Column="1" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.ClearCommand}" CommandParameter="CE"
+                        Focusable="False"/>
+                <Button Content="C" Grid.Row="0" Grid.Column="2" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.ClearCommand}" CommandParameter="C"
+                        Focusable="False"/>
+                <Button Content="Back" Grid.Row="0" Grid.Column="3" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.BackspaceCommand}"
+                        Focusable="False"/>
+
+                <Button Content="1/x" Grid.Row="1" Grid.Column="0" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.OperatorCommand}" CommandParameter="1/x"
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+                <Button Content="x²" Grid.Row="1" Grid.Column="1" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.OperatorCommand}" CommandParameter="x²"
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+                <Button Content="√(x)" Grid.Row="1" Grid.Column="2" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.OperatorCommand}" CommandParameter="√(x)"
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+                <Button Content="/" Grid.Row="1" Grid.Column="3" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.OperatorCommand}" CommandParameter="/"
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+
+                <Button Content="7" Grid.Row="2" Grid.Column="0" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="7"
+                        Focusable="False"/>
+                <Button Content="8" Grid.Row="2" Grid.Column="1" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="8"
+                        Focusable="False"/>
+                <Button Content="9" Grid.Row="2" Grid.Column="2" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="9"
+                        Focusable="False"/>
+                <Button Content="×" Grid.Row="2" Grid.Column="3" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.OperatorCommand}" CommandParameter="×"
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+
+                <Button Content="4" Grid.Row="3" Grid.Column="0" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="4"
+                        Focusable="False"/>
+                <Button Content="5" Grid.Row="3" Grid.Column="1" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="5"
+                        Focusable="False"/>
+                <Button Content="6" Grid.Row="3" Grid.Column="2" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="6"
+                        Focusable="False"/>
+                <Button Content="-" Grid.Row="3" Grid.Column="3" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.OperatorCommand}" CommandParameter="-"
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+
+                <Button Content="1" Grid.Row="4" Grid.Column="0" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="1"
+                        Focusable="False"/>
+                <Button Content="2" Grid.Row="4" Grid.Column="1" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="2"
+                        Focusable="False"/>
+                <Button Content="3" Grid.Row="4" Grid.Column="2" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="3"
+                        Focusable="False"/>
+                <Button Content="+" Grid.Row="4" Grid.Column="3" Margin="5" Background="Gray"
+                        Command="{Binding Calculator.OperatorCommand}" CommandParameter="+"
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+
+                <Button Content="+/-" Grid.Row="5" Grid.Column="0" Margin="5"
+                        Command="{Binding Calculator.OperatorCommand}" CommandParameter="+/-"
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+                <Button Content="0" Grid.Row="5" Grid.Column="1" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="0"
+                        Focusable="False"/>
+                <Button Content="." Grid.Row="5" Grid.Column="2" Margin="5"
+                        Command="{Binding Calculator.DigitCommand}" CommandParameter="."
+                        IsEnabled="{Binding Calculator.OperatorsEnabled}"
+                        Focusable="False"/>
+                <Button Content="=" Grid.Row="5" Grid.Column="3" Margin="5" Background="Cyan"
+                        Command="{Binding Calculator.EqualCommand}"
+                        Focusable="False"/>
+            </Grid>
+        </StackPanel>
+    </DockPanel>
 </Window>

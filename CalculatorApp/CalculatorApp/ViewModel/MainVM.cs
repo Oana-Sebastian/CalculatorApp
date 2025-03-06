@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using CalculatorApp.View;
 using CalculatorApp.ViewModel.Commands;
@@ -12,6 +13,7 @@ namespace CalculatorApp.ViewModel
         public ICommand CompositeMemoryClearCommand { get; }
         public ICommand CompositeMemoryStoreCommand { get; }
         public ICommand MemoryViewCommand { get; }
+        public ICommand AboutCommand { get; }
 
         public CalculatorVM Calculator { get; }
         public MemoryVM Memory { get; }
@@ -69,6 +71,7 @@ namespace CalculatorApp.ViewModel
             });
 
             MemoryViewCommand = new RelayCommand(_ => OpenMemoryWindow());
+            AboutCommand = new RelayCommand(_ => ShowAbout());
 
         }
 
@@ -76,6 +79,11 @@ namespace CalculatorApp.ViewModel
         {
             var memoryWindow = new MemoryWindow(this);
             memoryWindow.ShowDialog();
+        }
+
+        private void ShowAbout()
+        {
+            MessageBox.Show("Calculator Application\nDeveloped by Oană Sebastian\nGroup: 10LF233", "About", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
 

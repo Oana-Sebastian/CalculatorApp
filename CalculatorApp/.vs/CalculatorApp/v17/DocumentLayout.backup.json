@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\viewmodel\\memoryvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\viewmodel\\memoryvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\view\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -15,12 +11,40 @@
       "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\viewmodel\\calculatorvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\view\\memorywindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\view\\memorywindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\viewmodel\\mainvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\viewmodel\\mainvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\calculatorapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\calculatorapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\properties\\settings.settings||{6D2695F9-5365-4A78-89ED-F205C045BFE6}",
+      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\properties\\settings.settings||{6D2695F9-5365-4A78-89ED-F205C045BFE6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\properties\\settings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\properties\\settings.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\app.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\viewmodel\\memoryvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\viewmodel\\memoryvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\view\\memorywindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\view\\memorywindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\view\\memorywindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -29,10 +53,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\viewmodel\\commands\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\viewmodel\\commands\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|c:\\users\\sebi\\desktop\\calculatorapp\\calculatorapp\\calculatorapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CBC76CA8-17F8-4FAB-95D6-610E42F9E54F}|CalculatorApp\\CalculatorApp.csproj|solutionrelative:calculatorapp\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,58 +70,71 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MemoryWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\View\\MemoryWindow.xaml",
-              "RelativeDocumentMoniker": "CalculatorApp\\View\\MemoryWindow.xaml",
-              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\View\\MemoryWindow.xaml",
-              "RelativeToolTip": "CalculatorApp\\View\\MemoryWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-03T17:14:03.626Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MemoryVM.cs",
-              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\ViewModel\\MemoryVM.cs",
-              "RelativeDocumentMoniker": "CalculatorApp\\ViewModel\\MemoryVM.cs",
-              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\ViewModel\\MemoryVM.cs",
-              "RelativeToolTip": "CalculatorApp\\ViewModel\\MemoryVM.cs",
-              "ViewState": "AgIAAGoAAAAAAAAAAAAuwIAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T06:59:26.184Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\App.xaml.cs",
+              "RelativeDocumentMoniker": "CalculatorApp\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\App.xaml.cs",
+              "RelativeToolTip": "CalculatorApp\\App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-01T15:35:09.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "App.config",
+              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\App.config",
+              "RelativeDocumentMoniker": "CalculatorApp\\App.config",
+              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\App.config",
+              "RelativeToolTip": "CalculatorApp\\App.config",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-03-06T12:18:00.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "CalculatorVM.cs",
               "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\ViewModel\\CalculatorVM.cs",
               "RelativeDocumentMoniker": "CalculatorApp\\ViewModel\\CalculatorVM.cs",
               "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\ViewModel\\CalculatorVM.cs",
               "RelativeToolTip": "CalculatorApp\\ViewModel\\CalculatorVM.cs",
-              "ViewState": "AgIAAFIBAAAAAAAAAAAUwGsBAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAUwGkAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-01T14:50:16.703Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\App.xaml",
+              "RelativeDocumentMoniker": "CalculatorApp\\App.xaml",
+              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\App.xaml",
+              "RelativeToolTip": "CalculatorApp\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-06T12:12:50.089Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "MainVM.cs",
               "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\ViewModel\\MainVM.cs",
               "RelativeDocumentMoniker": "CalculatorApp\\ViewModel\\MainVM.cs",
               "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\ViewModel\\MainVM.cs",
               "RelativeToolTip": "CalculatorApp\\ViewModel\\MainVM.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAwC0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABoAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-03T18:48:16.81Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\View\\MainWindow.xaml",
               "RelativeDocumentMoniker": "CalculatorApp\\View\\MainWindow.xaml",
@@ -113,7 +146,70 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Settings.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\Properties\\Settings.Designer.cs",
+              "RelativeDocumentMoniker": "CalculatorApp\\Properties\\Settings.Designer.cs",
+              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\Properties\\Settings.Designer.cs",
+              "RelativeToolTip": "CalculatorApp\\Properties\\Settings.Designer.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T12:06:42.274Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "Settings.settings",
+              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\Properties\\Settings.settings",
+              "RelativeDocumentMoniker": "CalculatorApp\\Properties\\Settings.settings",
+              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\Properties\\Settings.settings",
+              "RelativeToolTip": "CalculatorApp\\Properties\\Settings.settings",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002767|",
+              "WhenOpened": "2025-03-06T12:05:19.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CalculatorApp",
+              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\CalculatorApp.csproj",
+              "RelativeDocumentMoniker": "CalculatorApp\\CalculatorApp.csproj",
+              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\CalculatorApp.csproj",
+              "RelativeToolTip": "CalculatorApp\\CalculatorApp.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-03-06T11:58:32.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MemoryVM.cs",
+              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\ViewModel\\MemoryVM.cs",
+              "RelativeDocumentMoniker": "CalculatorApp\\ViewModel\\MemoryVM.cs",
+              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\ViewModel\\MemoryVM.cs",
+              "RelativeToolTip": "CalculatorApp\\ViewModel\\MemoryVM.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAiwE8AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-03T06:59:26.184Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MemoryWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\View\\MemoryWindow.xaml",
+              "RelativeDocumentMoniker": "CalculatorApp\\View\\MemoryWindow.xaml",
+              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\View\\MemoryWindow.xaml",
+              "RelativeToolTip": "CalculatorApp\\View\\MemoryWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-03T17:14:03.626Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "MemoryWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\View\\MemoryWindow.xaml.cs",
               "RelativeDocumentMoniker": "CalculatorApp\\View\\MemoryWindow.xaml.cs",
@@ -121,11 +217,12 @@
               "RelativeToolTip": "CalculatorApp\\View\\MemoryWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-03T17:14:10.732Z"
+              "WhenOpened": "2025-03-03T17:14:10.732Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "RelayCommand.cs",
               "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\ViewModel\\Commands\\RelayCommand.cs",
               "RelativeDocumentMoniker": "CalculatorApp\\ViewModel\\Commands\\RelayCommand.cs",
@@ -134,18 +231,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-03T17:45:58.115Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\App.xaml.cs",
-              "RelativeDocumentMoniker": "CalculatorApp\\App.xaml.cs",
-              "ToolTip": "C:\\Users\\Sebi\\Desktop\\CalculatorApp\\CalculatorApp\\CalculatorApp\\App.xaml.cs",
-              "RelativeToolTip": "CalculatorApp\\App.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-01T15:35:09.921Z"
             }
           ]
         }
