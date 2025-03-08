@@ -101,7 +101,7 @@ namespace CalculatorApp.ViewModel
         private bool _memoryRecalled = false;
         public bool OperatorsEnabled => !_errorState;
         private double _copiedValue=0;
-
+        public string decimalSeparator => CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
 
         public CalculatorVM()
         {
@@ -134,9 +134,9 @@ namespace CalculatorApp.ViewModel
             string formatted = string.Empty;
 
            
-            if (raw.Contains(nfi.NumberDecimalSeparator))
+            if (raw.Contains(decimalSeparator))
             {
-                var parts = raw.Split(new string[] { nfi.NumberDecimalSeparator }, StringSplitOptions.None);
+                var parts = raw.Split(new string[] { decimalSeparator }, StringSplitOptions.None);
                 string integerPart = parts[0];
                 string fractionalPart = parts.Length > 1 ? parts[1] : "";
 
@@ -157,7 +157,7 @@ namespace CalculatorApp.ViewModel
                     formatted = integerPart;
                 }
                
-                formatted += nfi.NumberDecimalSeparator + fractionalPart;
+                formatted += decimalSeparator + fractionalPart;
             }
             else
             {
@@ -238,7 +238,7 @@ namespace CalculatorApp.ViewModel
                     return;
                 }
                
-                if (Display.Contains("."))
+                if (Display.Contains(decimalSeparator))
                 {
                     return;
                 }
@@ -335,7 +335,7 @@ namespace CalculatorApp.ViewModel
                 if (!string.IsNullOrEmpty(_currentOperator))
                     Evaluate();
                 else
-                    _lastValue = double.Parse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture); ;
+                    _lastValue = double.Parse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture);
             }
             
             _currentOperator = op;
