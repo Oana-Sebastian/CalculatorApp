@@ -2,7 +2,7 @@
 
 CalculatorApp is a WPF-based calculator application built in C# using the MVVM design pattern. It emulates the standard Windows Calculator and includes additional features from the Programmer variant, making it a versatile tool for everyday calculations and programming-related numeral conversions.
 
-#Features
+# Features
   * Standard Operations:
       - Supports basic arithmetic operations such as addition, subtraction, multiplication, and division.
   * Additional Operations:
@@ -22,17 +22,17 @@ CalculatorApp is a WPF-based calculator application built in C# using the MVVM d
   * State Persistence:
       - Remembers the last used settings (digit grouping and mode) between sessions.
 
-#Technologies
+# Technologies
   * WPF & XAML: For building a modern, non-resizable UI that mimics the Windows Calculator.
   * C# & .NET: Core programming language and platform.
   * MVVM Pattern: To separate UI from business logic and enhance maintainability.
   
-#Getting Started
+# Getting Started
   * Prerequisites
       - Visual Studio with the .NET desktop development workload.
       - .NET Framework or .NET Core (depending on your project settings).
       - 
-#Installation
+# Installation
   * Clone the Repository: git clone https://github.com/yourusername/CalculatorApp.git
   * Open the solution file (CalculatorApp.sln) in Visual Studio.
   * Build the project and run it to see the Calculator in action.
