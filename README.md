@@ -31,9 +31,9 @@ CalculatorApp is a WPF-based calculator application built in C# using the MVVM d
   * Prerequisites
       - Visual Studio with the .NET desktop development workload.
       - .NET Framework or .NET Core (depending on your project settings).
-      - 
+       
 # Installation
-  * Clone the Repository: git clone https://github.com/yourusername/CalculatorApp.git
+  * Clone the Repository: https://github.com/Oana-Sebastian/CalculatorApp.git 
   * Open the solution file (CalculatorApp.sln) in Visual Studio.
   * Build the project and run it to see the Calculator in action.
 
