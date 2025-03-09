@@ -10,6 +10,7 @@ CalculatorApp is a WPF-based calculator application built in C# using the MVVM d
 🔢 **Additional Operations**:
 
   * Includes operations like **square root**, **reciprocal** (1/x), **square**, **percentage**, and **sign inversion** (+/-).
+  * 
 💾 **Memory Functions**:
 
   * Offers memory controls: **MC**, **MR**, **M+**, **M-**, **MS**, **Mv** with the same behavior as the Windows Calculator.
@@ -25,13 +26,14 @@ CalculatorApp is a WPF-based calculator application built in C# using the MVVM d
 
 🖥️ **Programmer Mode**:
 
-  * Provides conversion functionalities between numeral systems:
-     - **Binary**
-     - **Octal**
-     - **Decimal**
-     - **Hexadecimal**
+Provides conversion functionalities between numeral systems:
+  
+  * **Binary**
+  * **Octal**
+  * **Decimal**
+  * **Hexadecimal**
        
-   with **input validation**.
+with **input validation**.
 
 ✂️ **Custom Cut/Copy/Paste**:
   
