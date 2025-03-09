@@ -165,7 +165,7 @@ namespace CalculatorApp.ViewModel
                 {
                     if (long.TryParse(raw, NumberStyles.Integer, CultureInfo.CurrentCulture, out long intPart))
                     {
-                        formatted = intPart.ToString("#,0", CultureInfo.CurrentCulture);
+                        formatted = intPart.ToString("#,0", CultureInfo.CurrentCulture);  
                     }
                     else
                     {
@@ -226,14 +226,14 @@ namespace CalculatorApp.ViewModel
                 Display = "";
             }
 
-            if (digit == ".")
+            if (digit == decimalSeparator)
             {
                 if (IsProgrammerMode)
                     return;
 
                 if (_isNewEntry)
                 {
-                    Display = "0.";
+                    Display = "0"+decimalSeparator;
                     _isNewEntry = false;
                     return;
                 }
@@ -278,6 +278,7 @@ namespace CalculatorApp.ViewModel
                     }
                     break;
                 case ("V"):
+                    Display = "";
                     Display=FormatNumber(_copiedValue);
                     _isNewEntry = false;
                 break;

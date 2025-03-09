@@ -9,6 +9,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Icon="../Images/Icon.png">
+    
     <Window.DataContext>
         <local:MainVM/>
     </Window.DataContext>
@@ -34,8 +35,8 @@
         <KeyBinding Key="NumPad8" Command="{Binding Calculator.DigitCommand}" CommandParameter="8"/>
         <KeyBinding Key="D9" Command="{Binding Calculator.DigitCommand}" CommandParameter="9"/>
         <KeyBinding Key="NumPad9" Command="{Binding Calculator.DigitCommand}" CommandParameter="9"/>
-        <KeyBinding Key="OemPeriod" Command="{Binding Calculator.DigitCommand}" CommandParameter="."/>
-        <KeyBinding Key="Decimal" Command="{Binding Calculator.DigitCommand}" CommandParameter="."/>
+        <KeyBinding Key="OemPeriod" Command="{Binding Calculator.DigitCommand}" CommandParameter="{Binding Calculator.decimalSeparator}"/>
+        <KeyBinding Key="Decimal" Command="{Binding Calculator.DigitCommand}" CommandParameter="{Binding Calculator.decimalSeparator}"/>
 
         <KeyBinding Key="Add" Command="{Binding Calculator.OperatorCommand}" CommandParameter="+"/>
         <KeyBinding Key="Subtract" Command="{Binding Calculator.OperatorCommand}" CommandParameter="-"/>
@@ -62,6 +63,10 @@
         <KeyBinding Key="P" Modifiers="Ctrl" Command="{Binding CompositeMemoryAddCommand}" CommandParameter="{Binding Calculator.Display}"/>
         <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding CompositeMemorySubtractCommand}" CommandParameter="{Binding Calculator.Display}"/>
         <KeyBinding Key="M" Modifiers="Ctrl" Command="{Binding CompositeMemoryStoreCommand}" CommandParameter="{Binding Calculator.Display}"/>
+
+        <KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding Calculator.FileManagementCommand}" CommandParameter="C"/>
+        <KeyBinding Key="X" Modifiers="Ctrl" Command="{Binding Calculator.FileManagementCommand}" CommandParameter="X"/>
+        <KeyBinding Key="V" Modifiers="Ctrl" Command="{Binding Calculator.FileManagementCommand}" CommandParameter="V"/>
     </Window.InputBindings>
 
     <DockPanel Height="554" VerticalAlignment="Center">
