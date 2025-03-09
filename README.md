@@ -54,9 +54,11 @@ with **input validation**.
   * MVVM Pattern: To separate **UI** from **business logic** and enhance maintainability.
   
 # 🚀 **Getting Started**
-  * 🔑 **Prerequisites**
-      - [Visual Studio](https://visualstudio.microsoft.com/) with the **.NET desktop development** workload.
-      - **.NET Framework** or **.NET Core** (depending on your project settings).
+
+🔑 **Prerequisites**
+
+  * [Visual Studio](https://visualstudio.microsoft.com/) with the **.NET desktop development** workload.
+  * **.NET Framework** or **.NET Core** (depending on your project settings).
        
 # 📥 **Installation**
   1. Clone the Repository: https://github.com/Oana-Sebastian/CalculatorApp.git 
