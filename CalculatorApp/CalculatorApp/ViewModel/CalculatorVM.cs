@@ -61,7 +61,7 @@ namespace CalculatorApp.ViewModel
         }
         public bool OperationsAllowed => !IsProgrammerMode || (IsProgrammerMode && SelectedBase == 10);
 
-        public string ModeText => IsProgrammerMode ? "Programmer Mode" : "Standard Mode";
+        public string ModeText => IsProgrammerMode ? "Programmer Mode: Base "+ SelectedBase : "Standard Mode";
 
         private int _selectedBase;
         public int SelectedBase
@@ -73,11 +73,19 @@ namespace CalculatorApp.ViewModel
                 {
                     _selectedBase = value;
                     OnPropertyChanged(nameof(SelectedBase));
+                    OnPropertyChanged(nameof(isBinary));
+                    OnPropertyChanged(nameof(isOctal));
+                    OnPropertyChanged(nameof(isDecimal));
+                    OnPropertyChanged(nameof(isHex));
+                    ((RelayCommand)DigitCommand)?.RaiseCanExecuteChanged();
+                    OnPropertyChanged(nameof(ModeText));
                     Display = FormatNumber(_lastValue);
+
 
                 }
             }
         }
+
 
         public ICommand DigitCommand { get; }
         public ICommand OperatorCommand { get; }
@@ -102,13 +110,17 @@ namespace CalculatorApp.ViewModel
         public bool OperatorsEnabled => !_errorState;
         private double _copiedValue=0;
         public string decimalSeparator => CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
-
+        public bool isBinary => _selectedBase>=2 && IsProgrammerMode;
+        public bool isOctal => _selectedBase>=8 && IsProgrammerMode;
+        public bool isDecimal => _selectedBase>=10;
+        public bool isHex => _selectedBase>=16 && IsProgrammerMode;
+      
         public CalculatorVM()
         {
             IsDigitGroupingEnabled = Properties.Settings.Default.IsDigitGroupingEnabled;
             IsProgrammerMode = Properties.Settings.Default.IsProgrammerMode;
             SelectedBase = Properties.Settings.Default.SelectedBase;
-            DigitCommand = new RelayCommand(param => AppendDigit(param.ToString()));
+            DigitCommand = new RelayCommand(param => AppendDigit(param.ToString()),CanExecuteDigit);
             OperatorCommand = new RelayCommand(execute: param => ProcessOperator(param.ToString()), canExecute: param => OperatorsEnabled);
             EqualCommand = new RelayCommand(param => Evaluate());
             ClearCommand = new RelayCommand(param => Clear(param));
@@ -116,8 +128,13 @@ namespace CalculatorApp.ViewModel
             MemoryRecallCommand = new RelayCommand(param => RecallMemory((double)param));
             MemoryChangeCommand = new RelayCommand(param => MemoryChange());
             FileManagementCommand = new RelayCommand(param => FileManagement(param.ToString()));
-            ToggleDigitGroupingCommand = new RelayCommand(_ => IsDigitGroupingEnabled = !IsDigitGroupingEnabled);
-            ToggleProgrammerModeCommand = new RelayCommand(_ => IsProgrammerMode = !IsProgrammerMode);
+            ToggleDigitGroupingCommand = new RelayCommand(_ =>
+            {
+                if (!IsProgrammerMode)
+                    IsDigitGroupingEnabled = !IsDigitGroupingEnabled;
+                else IsDigitGroupingEnabled = false;
+            });
+            ToggleProgrammerModeCommand = new RelayCommand( _ => IsProgrammerMode = !IsProgrammerMode );
             SetBaseCommand = new RelayCommand(param =>
             {
                 if (int.TryParse(param.ToString(), out int baseValue))
@@ -126,90 +143,40 @@ namespace CalculatorApp.ViewModel
                 }
             });
         }
-
-        private void FormatAndSetDisplay()
+        private void RecallMemory(double recalledMemory)
         {
-            var nfi = CultureInfo.CurrentCulture.NumberFormat;
-            string raw = Display.Replace(nfi.NumberGroupSeparator, "");
-            string formatted = string.Empty;
-
-           
-            if (raw.Contains(decimalSeparator))
-            {
-                var parts = raw.Split(new string[] { decimalSeparator }, StringSplitOptions.None);
-                string integerPart = parts[0];
-                string fractionalPart = parts.Length > 1 ? parts[1] : "";
-
-                if (IsDigitGroupingEnabled)
-                {
-                    if (long.TryParse(integerPart, NumberStyles.Integer, CultureInfo.CurrentCulture, out long intPart))
-                    {
-                        formatted = intPart.ToString("#,0", CultureInfo.CurrentCulture);
-                    }
-                    else
-                    {
-                        formatted = integerPart;
-                    }
-                }
-                else
-                {
-                    
-                    formatted = integerPart;
-                }
-               
-                formatted += decimalSeparator + fractionalPart;
-            }
-            else
-            {
-                if (IsDigitGroupingEnabled)
-                {
-                    if (long.TryParse(raw, NumberStyles.Integer, CultureInfo.CurrentCulture, out long intPart))
-                    {
-                        formatted = intPart.ToString("#,0", CultureInfo.CurrentCulture);  
-                    }
-                    else
-                    {
-                        formatted = raw;
-                    }
-                }
-                else
-                {
-                    formatted = raw;
-                }
-            }
-
-            Display = formatted;
+                Display = FormatNumber(recalledMemory);
+                _lastValue = recalledMemory;
+                _memoryRecalled = true;
         }
-        private string FormatNumber(double value)
+
+        private void MemoryChange()
         {
-            if (IsProgrammerMode)
+            _memoryRecalled = true;
+        }
+
+        private bool CanExecuteDigit(object parameter)
+        {
+            if (!IsProgrammerMode)
+                return true;
+            if (parameter is string digit)
             {
-                long intVal = (long)Math.Round(value);
-                switch (SelectedBase)
+                switch (_selectedBase)
                 {
                     case 2:
-                        return Convert.ToString(intVal, 2);
+                        return "01".Contains(digit);
                     case 8:
-                        return Convert.ToString(intVal, 8);
+                        return "01234567".Contains(digit);
                     case 10:
-                        return intVal.ToString();
+                        return "0123456789".Contains(digit);
                     case 16:
-                        return intVal.ToString("X");
-                    default:
-                        return intVal.ToString();
+                        return "0123456789ABCDEF".Contains(digit.ToUpper());
                 }
             }
-            else
-            if (!IsDigitGroupingEnabled)
-            return value.ToString("0.############################", CultureInfo.CurrentCulture);
-            else
-            return value.ToString("#,0.############################", CultureInfo.CurrentCulture);
+            return false;
         }
-
         private void AppendDigit(string digit)
         {
-
-
             if (_memoryRecalled)
             {
                 Display = "";
@@ -228,23 +195,25 @@ namespace CalculatorApp.ViewModel
 
             if (digit == decimalSeparator)
             {
-                if (IsProgrammerMode)
-                    return;
-
-                if (_isNewEntry)
+                if (!IsProgrammerMode)
                 {
-                    Display = "0"+decimalSeparator;
-                    _isNewEntry = false;
-                    return;
+                    if (_isNewEntry)
+                    {
+                        Display = "0" + decimalSeparator;
+                        _isNewEntry = false;
+                        return;
+                    }
+                    if (Display.Contains(decimalSeparator))
+                    {
+                        return;
+                    }
                 }
-               
-                if (Display.Contains(decimalSeparator))
+                else
                 {
-                    return;
+                    return; 
                 }
             }
 
-            
             if (_isNewEntry || Display == "0")
             {
                 Display = digit;
@@ -254,8 +223,8 @@ namespace CalculatorApp.ViewModel
             {
                 Display += digit;
             }
-            if(!IsProgrammerMode)
-            FormatAndSetDisplay();
+            if (!IsProgrammerMode)
+                FormatAndSetDisplay();
         }
 
         void FileManagement(string command)
@@ -267,7 +236,7 @@ namespace CalculatorApp.ViewModel
                 case ("C"):
                     if (double.TryParse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out double copy))
                     {
-                        _copiedValue=copy;
+                        _copiedValue = copy;
                     }
                     break;
                 case ("X"):
@@ -279,28 +248,15 @@ namespace CalculatorApp.ViewModel
                     break;
                 case ("V"):
                     Display = "";
-                    Display=FormatNumber(_copiedValue);
+                    Display = FormatNumber(_copiedValue);
                     _isNewEntry = false;
-                break;
+                    break;
             }
 
         }
 
-        private void RecallMemory(double recalledMemory)
-        {
-                Display = FormatNumber(recalledMemory);
-                _lastValue = recalledMemory;
-                _memoryRecalled = true;
-        }
-
-        private void MemoryChange()
-        {
-            _memoryRecalled = true;
-        }
-
         private void ProcessOperator(string op)
         {
-
             if (_memoryRecalled)
             {
                 _memoryRecalled = false;
@@ -314,31 +270,56 @@ namespace CalculatorApp.ViewModel
                 ProcessImmediateOperation(op);
                 return;
             }
-            
+
             if (op == "+/-")
             {
-                if (double.TryParse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out double current))
+                if (IsProgrammerMode)
                 {
-                    if (current == 0)
-                        return;
-                    double result = -current;
-                    Display=FormatNumber(result);
-                    _lastValue = result;  
-                    _isNewEntry = true;
+                    try
+                    {
+                        int current = Convert.ToInt32(Display, SelectedBase);
+                        if (current == 0)
+                            return;
+                        int result = -current;
+                        Display = Convert.ToString(result, SelectedBase).ToUpper();
+                        _lastValue = result;
+                        _isNewEntry = true;
+                    }
+                    catch
+                    {
+                        Display = "Error";
+                        _errorState = true;
+                        _isNewEntry = true;
+                    }
+                }
+                else
+                {
+                    if (double.TryParse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out double current))
+                    {
+                        if (current == 0)
+                            return;
+                        double result = -current;
+                        Display = FormatNumber(result);
+                        _lastValue = result;
+                        _isNewEntry = true;
+                    }
                 }
                 return;
             }
 
-            
             if (!_isNewEntry)
             {
-                
                 if (!string.IsNullOrEmpty(_currentOperator))
                     Evaluate();
                 else
-                    _lastValue = double.Parse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture);
+                {
+                    if (IsProgrammerMode)
+                        _lastValue = Convert.ToInt32(Display, SelectedBase);
+                    else
+                        _lastValue = double.Parse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture);
+                }
             }
-            
+
             _currentOperator = op;
             _lastOperator = "";
             _lastOperand = 0;
@@ -350,60 +331,127 @@ namespace CalculatorApp.ViewModel
             if (_errorState)
                 return;
 
-            if (!double.TryParse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out double current))
+            if (IsProgrammerMode)
             {
-                Display = "Error";
-                _errorState = true;
+                int currentValue = 0;
+                try
+                {
+                    currentValue = Convert.ToInt32(Display, SelectedBase);
+                }
+                catch
+                {
+                    Display = "Error";
+                    _errorState = true;
+                    _isNewEntry = true;
+                    return;
+                }
+                int result = 0;
+                switch (op)
+                {
+                    case "√(x)":
+                        if (currentValue < 0)
+                        {
+                            _errorState = true;
+                            OnPropertyChanged(nameof(OperatorsEnabled));
+                        }
+                        result = (int)Math.Sqrt(currentValue);
+                        break;
+                    case "1/x":
+                        if (currentValue == 0)
+                        {
+                            Display = "Cannot divide by zero";
+                            _isNewEntry = true;
+                            _errorState = true;
+                            OnPropertyChanged(nameof(OperatorsEnabled));
+                            return;
+                        }
+                        result = 1 / currentValue;
+                        break;
+                    case "x²":
+                        result = currentValue * currentValue;
+                        break;
+                    case "%":
+                        result = currentValue / 100;
+                        break;
+                }
+                Display = Convert.ToString(result, SelectedBase).ToUpper();
+                _lastValue = result;
                 _isNewEntry = true;
-                return;
-            }
-            double result = 0;
-            switch (op)
-            {
-                case "√(x)":
-                    if (current < 0)
-                    {
-                        _errorState = true;
-                        OnPropertyChanged(nameof(OperatorsEnabled));
-                    }
-                    result = Math.Sqrt(current);
-                    break;
-                case "1/x":
-                    if (current == 0)
-                    {
-                        Display = "Cannot divide by zero";
-                        _isNewEntry = true;
-                        _errorState = true;
-                        OnPropertyChanged(nameof(OperatorsEnabled));
-                        return;
-                    }
-                    result = 1 / current;
-                    break;
-                case "x²":
-                    result = current * current;
-                    break;
-                case "%":
-                    
-                    result = current / 100;
-                    break;
-            }
-            if (!string.IsNullOrEmpty(_currentOperator))
-            {
-                Display = FormatNumber(result);
             }
             else
             {
-                _lastValue = result;
-                Display = FormatNumber(result);
+                if (!double.TryParse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out double current))
+                {
+                    Display = "Error";
+                    _errorState = true;
+                    _isNewEntry = true;
+                    return;
+                }
+                double result = 0;
+                switch (op)
+                {
+                    case "√(x)":
+                        if (current < 0)
+                        {
+                            _errorState = true;
+                            OnPropertyChanged(nameof(OperatorsEnabled));
+                        }
+                        result = Math.Sqrt(current);
+                        break;
+                    case "1/x":
+                        if (current == 0)
+                        {
+                            Display = "Cannot divide by zero";
+                            _isNewEntry = true;
+                            _errorState = true;
+                            OnPropertyChanged(nameof(OperatorsEnabled));
+                            return;
+                        }
+                        result = 1 / current;
+                        break;
+                    case "x²":
+                        result = current * current;
+                        break;
+                    case "%":
+                        result = current / 100;
+                        break;
+                }
+                if (!string.IsNullOrEmpty(_currentOperator))
+                {
+                    Display = FormatNumber(result);
+                }
+                else
+                {
+                    _lastValue = result;
+                    Display = FormatNumber(result);
+                }
+                _isNewEntry = true;
             }
-            _isNewEntry = true;
         }
 
         private void Evaluate()
         {
             if (_errorState)
+            {
                 ClearEverything();
-            
+                return;
+            }
+
+            if (IsProgrammerMode && SelectedBase != 10)
+            {
+                EvaluateProgrammer();
+            }
+            else
+            {
+                EvaluateStandard();
+            }
+        }
+
+        private void EvaluateStandard()
+        {
+            if (_errorState)
+                ClearEverything();
+
             if (!double.TryParse(Display, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out double currentValue))
             {
                 Display = "Error";
@@ -431,7 +479,6 @@ namespace CalculatorApp.ViewModel
             }
             else if (!string.IsNullOrEmpty(_lastOperator))
             {
-                
                 double result = Compute(currentValue, _lastOperand, _lastOperator);
                 if (_errorState)
                 {
@@ -441,6 +488,95 @@ namespace CalculatorApp.ViewModel
                 Display = FormatNumber(result);
                 _lastValue = result;
                 _isNewEntry = true;
+            }
+        }
+
+        private void EvaluateProgrammer()
+        {
+            int currentValue = 0;
+            try
+            {
+                currentValue = Convert.ToInt32(Display, SelectedBase);
+            }
+            catch
+            {
+                Display = "Error";
+                _errorState = true;
+                _isNewEntry = true;
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(_currentOperator))
+            {
+                int lastVal = (int)Math.Round(_lastValue);
+                int result = 0;
+                switch (_currentOperator)
+                {
+                    case "+":
+                        result = lastVal + currentValue;
+                        break;
+                    case "-":
+                        result = lastVal - currentValue;
+                        break;
+                    case "×":
+                    case "*":
+                        result = lastVal * currentValue;
+                        break;
+                    case "/":
+                        if (currentValue == 0)
+                        {
+                            Display = "Cannot divide by zero";
+                            _errorState = true;
+                            _isNewEntry = true;
+                            OnPropertyChanged(nameof(OperatorsEnabled));
+                            return;
+                        }
+                        result = lastVal / currentValue;
+                        break;
+                    default:
+                        result = currentValue;
+                        break;
+                }
+                _lastOperand = currentValue;
+                _lastOperator = _currentOperator;
+                _lastValue = result;
+                _currentOperator = "";
+                _isNewEntry = true;
+                Display = Convert.ToString(result, SelectedBase).ToUpper();
+            }
+            else if (!string.IsNullOrEmpty(_lastOperator))
+            {
+                int currentInt = currentValue;
+                int result = 0;
+                switch (_lastOperator)
+                {
+                    case "+":
+                        result = currentInt + (int)_lastOperand;
+                        break;
+                    case "-":
+                        result = currentInt - (int)_lastOperand;
+                        break;
+                    case "×":
+                    case "*":
+                        result = currentInt * (int)_lastOperand;
+                        break;
+                    case "/":
+                        if (_lastOperand == 0)
+                        {
+                            Display = "Cannot divide by zero";
+                            _errorState = true;
+                            _isNewEntry = true;
+                            return;
+                        }
+                        result = currentInt / (int)_lastOperand;
+                        break;
+                    default:
+                        result = currentInt;
+                        break;
+                }
+                _lastValue = result;
+                _isNewEntry = true;
+                Display = Convert.ToString(result, SelectedBase).ToUpper();
             }
         }
 
@@ -457,9 +593,9 @@ namespace CalculatorApp.ViewModel
                     return a * b;
                 case "/":
                     if (b == 0)
-                        {
-                        Display = "Cannot divide by zero";          
-                         _errorState = true;
+                    {
+                        Display = "Cannot divide by zero";
+                        _errorState = true;
                         _isNewEntry = true;
                         OnPropertyChanged(nameof(OperatorsEnabled));
                         return 0;
@@ -469,6 +605,85 @@ namespace CalculatorApp.ViewModel
                     return 0;
             }
         }
+
+        private string FormatNumber(double value)
+        {
+            if (IsProgrammerMode)
+            {
+                long intVal = (long)Math.Round(value);
+                switch (SelectedBase)
+                {
+                    case 2:
+                        return Convert.ToString(intVal, 2);
+                    case 8:
+                        return Convert.ToString(intVal, 8);
+                    case 10:
+                        return intVal.ToString();
+                    case 16:
+                        return intVal.ToString("X");
+                    default:
+                        return intVal.ToString();
+                }
+            }
+            else if (!IsDigitGroupingEnabled)
+                return value.ToString("0.############################", CultureInfo.CurrentCulture);
+            else
+                return value.ToString("#,0.############################", CultureInfo.CurrentCulture);
+        }
+
+        private void FormatAndSetDisplay()
+        {
+            var nfi = CultureInfo.CurrentCulture.NumberFormat;
+            string raw = Display.Replace(nfi.NumberGroupSeparator, "");
+            string formatted = string.Empty;
+
+            if (raw.Contains(decimalSeparator))
+            {
+                var parts = raw.Split(new string[] { decimalSeparator }, StringSplitOptions.None);
+                string integerPart = parts[0];
+                string fractionalPart = parts.Length > 1 ? parts[1] : "";
+
+                if (IsDigitGroupingEnabled)
+                {
+                    if (long.TryParse(integerPart, NumberStyles.Integer, CultureInfo.CurrentCulture, out long intPart))
+                    {
+                        formatted = intPart.ToString("#,0", CultureInfo.CurrentCulture);
+                    }
+                    else
+                    {
+                        formatted = integerPart;
+                    }
+                }
+                else
+                {
+                    formatted = integerPart;
+                }
+                formatted += decimalSeparator + fractionalPart;
+            }
+            else
+            {
+                if (IsDigitGroupingEnabled)
+                {
+                    if (long.TryParse(raw, NumberStyles.Integer, CultureInfo.CurrentCulture, out long intPart))
+                    {
+                        formatted = intPart.ToString("#,0", CultureInfo.CurrentCulture);
+                    }
+                    else
+                    {
+                        formatted = raw;
+                    }
+                }
+                else
+                {
+                    formatted = raw;
+                }
+            }
+            Display = formatted;
+        }
+
+
+
+        
 
         private void Clear(object parameter)
         {

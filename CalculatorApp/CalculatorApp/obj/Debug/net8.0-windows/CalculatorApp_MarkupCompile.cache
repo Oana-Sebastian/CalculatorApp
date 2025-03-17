@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\App.xaml
-2635058785
+41743956762
 
-9145886788
+12-1456290044
 198-1431420039
-View\MainWindow.xaml;View\MemoryWindow.xaml;
+View\MainWindow.xaml;View\MemoryWindow.xaml;View\ProgrammerButtons.xaml;View\StandardButtons.xaml;
 
 False
 

@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="CalculatorApp.View.StandardButtons"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Background="Black" Height="407" Width="306">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Content="%" Grid.Row="0" Grid.Column="0" Margin="5" Background="Gray"
+            Command="{Binding Calculator.OperatorCommand}" CommandParameter="%"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+        <Button Content="CE" Grid.Row="0" Grid.Column="1" Margin="5" Background="Gray"
+            Command="{Binding Calculator.ClearCommand}" CommandParameter="CE"
+            Focusable="False"/>
+        <Button Content="C" Grid.Row="0" Grid.Column="2" Margin="5" Background="Gray"
+            Command="{Binding Calculator.ClearCommand}" CommandParameter="C"
+            Focusable="False"/>
+        <Button Content="Back" Grid.Row="0" Grid.Column="3" Margin="5" Background="Gray"
+            Command="{Binding Calculator.BackspaceCommand}"
+            Focusable="False"/>
+
+        <Button Content="1/x" Grid.Row="1" Grid.Column="0" Margin="5" Background="Gray"
+            Command="{Binding Calculator.OperatorCommand}" CommandParameter="1/x"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+        <Button Content="x²" Grid.Row="1" Grid.Column="1" Margin="5" Background="Gray"
+            Command="{Binding Calculator.OperatorCommand}" CommandParameter="x²"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+        <Button Content="√(x)" Grid.Row="1" Grid.Column="2" Margin="5" Background="Gray"
+            Command="{Binding Calculator.OperatorCommand}" CommandParameter="√(x)"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+        <Button Content="/" Grid.Row="1" Grid.Column="3" Margin="5" Background="Gray"
+            Command="{Binding Calculator.OperatorCommand}" CommandParameter="/"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+
+        <Button Content="7" Grid.Row="2" Grid.Column="0" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="7"
+            Focusable="False"/>
+        <Button Content="8" Grid.Row="2" Grid.Column="1" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="8"
+            Focusable="False"/>
+        <Button Content="9" Grid.Row="2" Grid.Column="2" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="9"
+            Focusable="False"/>
+        <Button Content="×" Grid.Row="2" Grid.Column="3" Margin="5" Background="Gray"
+            Command="{Binding Calculator.OperatorCommand}" CommandParameter="×"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+
+        <Button Content="4" Grid.Row="3" Grid.Column="0" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="4"
+            Focusable="False"/>
+        <Button Content="5" Grid.Row="3" Grid.Column="1" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="5"
+            Focusable="False"/>
+        <Button Content="6" Grid.Row="3" Grid.Column="2" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="6"
+            Focusable="False"/>
+        <Button Content="-" Grid.Row="3" Grid.Column="3" Margin="5" Background="Gray"
+            Command="{Binding Calculator.OperatorCommand}" CommandParameter="-"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+
+        <Button Content="1" Grid.Row="4" Grid.Column="0" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="1"
+            Focusable="False"/>
+        <Button Content="2" Grid.Row="4" Grid.Column="1" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="2"
+            Focusable="False"/>
+        <Button Content="3" Grid.Row="4" Grid.Column="2" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="3"
+            Focusable="False"/>
+        <Button Content="+" Grid.Row="4" Grid.Column="3" Margin="5" Background="Gray"
+            Command="{Binding Calculator.OperatorCommand}" CommandParameter="+"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+
+        <Button Content="+/-" Grid.Row="5" Grid.Column="0" Margin="5"
+            Command="{Binding Calculator.OperatorCommand}" CommandParameter="+/-"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+        <Button Content="0" Grid.Row="5" Grid.Column="1" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="0"
+            Focusable="False"/>
+        <Button Content="." Grid.Row="5" Grid.Column="2" Margin="5"
+            Command="{Binding Calculator.DigitCommand}" CommandParameter="{Binding Calculator.decimalSeparator}"
+            IsEnabled="{Binding Calculator.OperatorsEnabled}"
+            Focusable="False"/>
+        <Button Content="=" Grid.Row="5" Grid.Column="3" Margin="5" Background="Cyan"
+            Command="{Binding Calculator.EqualCommand}"
+            Focusable="False"/>
+    </Grid>
+</UserControl>

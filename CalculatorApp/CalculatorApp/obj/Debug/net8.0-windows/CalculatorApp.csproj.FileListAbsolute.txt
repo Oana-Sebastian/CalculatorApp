@@ -44,3 +44,7 @@ C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0
 C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\MemoryWindow.g.cs
 C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\MemoryWindow.baml
 C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\bin\Debug\net8.0-windows\CalculatorApp.dll.config
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\ProgrammerButtons.baml
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\StandardButtons.baml
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\ProgrammerButtons.g.cs
+C:\Users\Sebi\Desktop\CalculatorApp\CalculatorApp\CalculatorApp\obj\Debug\net8.0-windows\View\StandardButtons.g.cs
